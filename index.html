@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <canvas id="canvas" width="100%" height="100%"></canvas>
+    <img id="background" width="100%" height="100%" src="resources/background.png"></canvas>
     <div id="container">
         <h1>
             Brad's href dump (temporary) (hopefully)
@@ -23,35 +23,4 @@
         </ul> 
     </div>
 </body>
-
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const w = window.getInnerWidth, h = canvas.getInnerHeight;
-
-initColors = (range) => {
-    var colors = [];
-
-    for (let i = 0; i < range; i++) {
-        let hex = Math.floor(i / range * parseInt("ffffff", 16)).toString(16);
-        hex = "#" + ("0").repeat(6 - hex.length) + hex;
-        colors.push(hex);
-    }
-    return colors;
-}
-
-main = () => {
-    let colors = initColors(w * h);
-
-    for (let x = 0; x < w; x++) {
-
-        for (let y = 0; y < h; y++) {
-
-            ctx.fillStyle = colors[x * h + y % colors.length];
-            ctx.fillRect(x, y, 1, 1);
-        }
-    }
-}
-main();
-</script>
 </html>

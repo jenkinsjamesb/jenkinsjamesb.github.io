@@ -6,7 +6,12 @@ html, body {
     overflow: hidden;
     display: block;
     font-family: "Lucida Console", monospace;
-  }
+}
+
+#canvas {
+    z-index: 0;
+    position: relative;
+}
 
 #container {
     width: 75%;
@@ -14,6 +19,10 @@ html, body {
     opacity: 75%;
     align-self: center;
     align-content: center;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 h1 {
