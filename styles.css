@@ -1,0 +1,15 @@
+body {
+    font-family: "Lucida Console", monospace;
+}
+
+h1 {
+    color: blue;
+}
+
+li {
+    font-size: small;
+}
+
+li > ul > li > a {
+    color: red
+}
