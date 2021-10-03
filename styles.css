@@ -14,19 +14,21 @@ html, body {
 }
 
 #container {
-    width: 75%;
-    color: white;
-    opacity: 75%;
-    align-self: center;
-    align-content: center;
-    z-index: 1;
+    width: 70%;
+    height:100%;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0%;
+    left: 15%;
+    margin: 0 auto;
+    z-index: 1;
+    background-color: white;
+    opacity: 95%;
+    
 }
 
 h1 {
     color: blue;
+    text-align: center;
 }
 
 li {
