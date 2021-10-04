@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <title id="title">jamesbjenkins - home</title>
 </head>
 
@@ -40,7 +40,7 @@
 
     const update_content = () => {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'resources/tabs/' + activeId + '.html', true);
+        xhr.open('GET', '/resources/tabs/' + activeId + '.html', true);
         xhr.onreadystatechange= function() {
             if (this.readyState!==4) return;
             if (this.status!==200) return;
