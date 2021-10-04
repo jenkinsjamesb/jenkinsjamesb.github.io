@@ -26,11 +26,12 @@ html, body {
     width: 10%;
     height: 100%;
     position: fixed;
-    top: 0%;
+    top: -1px;
     left: 10%;
     padding: 0px;
     margin: 0px;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0px;
 }
 
 /* Don't know why this is needed but it was the only way I could get it to work. */
@@ -50,6 +51,8 @@ html, body {
     margin: 0px;
     background-color: lightgrey;
     border: 1px solid black;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
     text-align: center;
 }
 
