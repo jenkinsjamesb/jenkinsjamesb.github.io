@@ -34,7 +34,7 @@ html, body {
 }
 
 /* Don't know why this is needed but it was the only way I could get it to work. */
-#tabcontainer #head {
+#tabcontainer #head-tab {
     height: 0px;
     top: -5px;
     margin: 0%;

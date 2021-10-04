@@ -9,111 +9,54 @@
     <div id="container">
         
         <div id="content">
-            <h1>
-                Brad's href dump 
-            </h1>
             
-            <h2>
-                (Under Construction)
-            </h2>
-            
-            <ul>
-                <li>Portfolio
-                    <ul>
-                        <li><a href="resources/lecNotes0.pdf">Lecture 0 Notes</a></li>
-                        <li><a href="resources/lecNotes1.pdf">Lecture 1 Notes</a></li>
-                        <li><a href="resources/lecNotes2.pdf">Lecture 2 Notes</a></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        
-                    </ul>
-                </li>
-                
-            </ul> 
         </div>
 
         <div id="tabcontainer">
             <table rules=>
                 <tbody>
                     <!-- This "head" td shouldn't be necessary but the tab selection breaks slightly if removed. no touch--> 
-                    <tr><td id="head"></td></tr>
-                    <tr><td id="tab0">Home</td></tr>
-                    <tr><td id="tab1">Portfolio</td></tr>
-                    <tr><td id="tab2">soon™</td></tr>
-                    <tr><td id="tab3">soon™</td></tr>
-                    <tr><td id="tab4">soon™</td></tr>
-                    <tr><td id="tab5">soon™</td></tr>
-                    <tr><td id="tab6">soon™</td></tr>
-                    <tr><td id="tab7">soon™</td></tr>
-                    <tr><td id="tab8">soon™</td></tr>
-                    <tr><td id="tab9">soon™</td></tr>
+                    <tr><td class="tab" id="head-tab"></td></tr>
+                    <tr><td class="tab" id="home-tab">Home</td></tr>
+                    <tr><td class="tab" id="portfolio-tab">Portfolio</td></tr>
+                    <tr><td class="tab" id="2-tab">soon™</td></tr>
+                    <tr><td class="tab" id="3-tab">soon™</td></tr>
+                    <tr><td class="tab" id="4-tab">soon™</td></tr>
+                    <tr><td class="tab" id="5-tab">soon™</td></tr>
+                    <tr><td class="tab" id="6-tab">soon™</td></tr>
+                    <tr><td class="tab" id="7-tab">soon™</td></tr>
+                    <tr><td class="tab" id="8-tab">soon™</td></tr>
+                    <tr><td class="tab" id="9-tab">soon™</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 </body>
 <script>
-    var active = document.querySelector("#tab0"), activeIndex = 1;
+    var active = document.querySelector("#home-tab"), activeId = active.getAttribute("id");
     active.classList.add("active");
 
+    const update_content = () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'resources/tabs/' + activeId + '.html', true);
+        xhr.onreadystatechange= function() {
+            if (this.readyState!==4) return;
+            if (this.status!==200) return;
+            document.getElementById('content').innerHTML= this.responseText;
+        };
+        xhr.send();
+    }
+
+    update_content();
+    
     window.onmousedown = (e) => {
         active.classList.remove("active");
-        e.target.hasAttribute("id") ? e.target.getAttribute("id").includes("tab") ? active = e.target:null:null;
-        activeIndex = active.getAttribute("id")[active.getAttribute("id").length - 1];
+        e.target.getAttribute("class") == "tab" ? active = e.target:null;
+        activeId = active.getAttribute("id");
         active.classList.add("active");
+        update_content();
     }
+
+    
 </script>
 </html>
