@@ -21,23 +21,25 @@
                     <tr><td class="tab" id="head-tab"></td></tr>
                     <tr><td class="tab" id="home-tab">Home</td></tr>
                     <tr><td class="tab" id="portfolio-tab">Portfolio</td></tr>
-                    <tr><td class="tab" id="2-tab">soon™</td></tr>
+                    <tr><td class="tab" id="2-tab">soon™</td></tr>  
                     <tr><td class="tab" id="3-tab">soon™</td></tr>
                     <tr><td class="tab" id="4-tab">soon™</td></tr>
                     <tr><td class="tab" id="5-tab">soon™</td></tr>
                     <tr><td class="tab" id="6-tab">soon™</td></tr>
                     <tr><td class="tab" id="7-tab">soon™</td></tr>
                     <tr><td class="tab" id="8-tab">soon™</td></tr>
-                    <tr><td class="tab" id="9-tab">soon™</td></tr>
+                    <tr><td class="tab" id="bugs-tab">Bug Reports</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 </body>
 <script>
+    //sets home as default tab
     var active = document.querySelector("#home-tab"), activeId = active.getAttribute("id");
     active.classList.add("active");
 
+    //replaces content div with requested file
     const update_content = () => {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/resources/tabs/' + activeId + '.html', true);
@@ -51,8 +53,9 @@
         document.getElementById("title").innerText = "jamesbjenkins - " + activeId.replace("-tab", "")
     }
 
-    update_content();
+    update_content();   //intial call to make the page look right
     
+    //listen for a click on the tab !!does not work on mobile
     window.onmousedown = (e) => {
         active.classList.remove("active");
         e.target.getAttribute("class") == "tab" ? active = e.target:null;
