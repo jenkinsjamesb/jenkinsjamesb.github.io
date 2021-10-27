@@ -11,7 +11,7 @@ html, body {
 }
 
 #container {
-    display: flex;
+    /*display: flex;*/
     width: 60%;
     height: auto;
     min-height: 100%;
@@ -66,13 +66,16 @@ html, body {
     border-right: 0px;
 }
 
-h1, h2 {
+#content {
     color: black;
+}
+
+#demos-about {
     text-align: center;
 }
 
-li {
-    font-size: small;
+h1, h2, h3, h4, h5, h6, p {
+    text-align: center;
 }
 
 li > ul > li > a {
