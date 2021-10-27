@@ -1,0 +1,53 @@
+<h1 id="pot">Pot: 0</h1>
+
+<div id="0">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips0" for="name0">50</label>
+    <input type="text" id="name0">
+</div>
+
+<div id="1">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips1" for="name1">50</label>
+    <input type="text" id="name1">
+</div>
+
+<div id="2">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips2" for="name2">50</label>
+    <input type="text" id="name2">
+</div>
+
+<div id="3">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips3" for="name3">50</label>
+    <input type="text" id="name3">
+</div>
+
+<div id="4">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips4" for="name4">50</label>
+    <input type="text" id="name4">
+</div>
+
+<div id="5">
+    <button class="plus">+</button><button class="minus">-</button>
+    <label id="chips5" for="name5">50</label>
+    <input type="text" id="name5">
+</div>
+
+<script>
+    let pot = 0;
+    let chips = [50, 50, 50, 50, 50, 50];
+
+    window.onmousedown = (e) => {
+        let dPot = 0;
+        e.target.getAttribute('class') == 'plus' ? dPot++:e.target.getAttribute('class') == 'minus' ? dPot--:null;
+        pot += dPot;
+        document.getElementById('pot').innerText = 'Pot: ' + pot;
+        groupIndex = parseInt(e.target.parentElement.getAttribute('id'), 10);
+        console.log(groupIndex);
+        chips[groupIndex] += -1 * dPot;
+        console.log(document.getElementById('chips' + groupIndex).innerText = chips[groupIndex]);
+    }
+</script>
