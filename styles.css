@@ -11,44 +11,42 @@ html, body {
 }
 
 #container {
-    /*display: flex;*/
-    width: 60%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 0px;
+    opacity: 95%;
+    width: max-content;
+    min-width: 100%;
+    min-height: 100%;
+    margin: 0px;
+}
+
+#content {
+    width: max-content;
+    min-width: 60%;
     height: auto;
     min-height: 100%;
-    position: absolute;
-    margin: 0px 0px;
-    top: 0%;
-    left: 20%;
+    position: relative;
+    margin: 0px;
     background-color: white;
-    opacity: 95%;
+    color: black;
 }
 
 #tabcontainer table {
-    width: 10%;
+    width: max-content;
     height: 100%;
-    position: fixed;
-    top: -1px;
-    left: 10%;
     padding: 0px;
     margin: 0px;
     border-collapse: separate !important;
     border-spacing: 0px;
 }
 
-/* Don't know why this is needed but it was the only way I could get it to work. */
-#tabcontainer #head-tab {
-    height: 0px;
-    top: -5px;
-    margin: 0%;
-    padding: 0% ;
-    visibility: hidden;
-    border-top: 0px;
-}
-
 #tabcontainer td {
     width: 100%;
     height: auto;
-    padding: 0px;
+    padding-inline: 10px;
     margin: 0px;
     background-color: lightgrey;
     border: 1px solid black;
@@ -64,14 +62,6 @@ html, body {
 #tabcontainer .active {
     background-color: white;
     border-right: 0px;
-}
-
-#content {
-    color: black;
-}
-
-#demos-about {
-    text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6, p {

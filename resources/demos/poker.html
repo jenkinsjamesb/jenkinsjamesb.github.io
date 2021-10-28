@@ -23,6 +23,7 @@
             pot = 0;
             chips = [];
             bets = [];
+            maxBet = 0;
             document.getElementById("control-table").innerHTML = "";
 
             //fills table
@@ -40,65 +41,67 @@
                     bets.push(0);
                 }
             }
+
+            let buttons = document.querySelectorAll("button");
+            buttons.forEach((button) => {
+                button.addEventListener("touchstart", handlePokerInteraction);
+                button.addEventListener("click", handlePokerInteraction);
+            });
+        }
+
+        //handles control table inputs THROWS ERRORS EVERY CLICK
+        let handlePokerInteraction = (e) => {
+
+            let dPot = 0;
+            let targetClass = e.target.getAttribute("class");
+            let targetRow = e.target.parentElement.parentElement.rowIndex;
+
+            switch (targetClass) {
+                case "plus":
+                case "minus":
+                    if (targetClass == "plus") dPot++; else dPot--;
+                    pot += dPot;
+                    bets[targetRow] += dPot;
+                    chips[targetRow] -= dPot;
+                    maxBet = Math.max.apply(null, bets);
+                    //conditional call button disabling
+                    break;
+
+                case "call":
+                    if (bets[targetRow] < maxBet) {
+                        let dBets = maxBet - bets[targetRow];
+                        pot += dBets;
+                        bets[targetRow] += dBets;
+                        chips[targetRow] -= dBets;
+                    }
+                    break;
+
+                case "award":
+                    chips[targetRow] += pot;
+                    pot = 0;
+                    bets = [];
+                    maxBet = 0;
+                    break;
+                
+                case "reset":
+                    setup();
+                    break;
+
+                case "rotate-dealer":
+                    let table = document.getElementById("control-table");
+                    let buffer = table.rows[0];
+                    table.deleteRow(0);
+                    table.appendChild(buffer);
+                    break;
+            }
+            document.getElementById("pot").innerText = "Pot: " + pot;
+            document.getElementById("chips" + targetRow).innerText = chips[targetRow];
         }
 
         //sets up table when value is changed
-        let settings = document.querySelectorAll(".setting")
+        let settings = document.querySelectorAll(".setting");
         settings.forEach((setting) => {
-            setting.addEventListener("input", (e) => {
-                setup();
-            });
+            setting.addEventListener("input", setup);
         });
-
-        //handles control table inputs THROWS ERRORS EVERY CLICK
-        window.onmousedown = (e) => {
-
-            if (e.target.tagName == "BUTTON") {
-                let dPot = 0;
-                let targetClass = e.target.getAttribute("class");
-                let targetRow = e.target.parentElement.parentElement.rowIndex;
-
-                switch (targetClass) {
-                    case "plus":
-                    case "minus":
-                        if (targetClass == "plus") dPot++; else dPot--;
-                        pot += dPot;
-                        bets[targetRow] += dPot;
-                        chips[targetRow] -= dPot;
-                        maxBet = Math.max.apply(null, bets);
-                        //conditional call button disabling
-                        break;
-
-                    case "call":
-                        if (bets[targetRow] < maxBet) {
-                            let dBets = maxBet - bets[targetRow];
-                            pot += dBets;
-                            bets[targetRow] += dBets;
-                            chips[targetRow] -= dBets;
-                        }
-                        break;
-
-                    case "award":
-                        chips[targetRow] += pot;
-                        pot = 0;
-                        bets = [];
-                        break;
-                    
-                    case "reset":
-                        setup();
-                        break;
-
-                    case "rotate-dealer":
-                        let table = document.getElementById("control-table");
-                        let buffer = table.rows[0];
-                        table.deleteRow(0);
-                        table.appendChild(buffer);
-                        break;
-                }
-                document.getElementById("pot").innerText = "Pot: " + pot;
-                document.getElementById("chips" + targetRow).innerText = chips[targetRow];
-                //bet commit button?
-            }
-        }
     </script>
 </body>

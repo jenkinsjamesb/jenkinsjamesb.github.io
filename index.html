@@ -9,14 +9,10 @@
 
 <body id="body">
     <div id="container">
-        
-        <div id="content"></div>
 
         <div id="tabcontainer">
             <table rules=>
                 <tbody>
-                    <!-- This "head" td shouldn"t be necessary but the tab positions breaks slightly if removed. no touch--> 
-                    <tr><td class="tab" id="head-tab"></td></tr>
                     <tr><td class="tab" id="home-tab">Home</td></tr>
                     <tr><td class="tab" id="portfolio-tab">Portfolio</td></tr>
                     <tr><td class="tab" id="2-tab">soon™</td></tr>  
@@ -30,6 +26,8 @@
                 </tbody>
             </table>
         </div>
+        
+        <div id="content"></div>
     </div>
 
     <script id="inject-script"></script>
@@ -67,7 +65,7 @@
         update_content();   //intial call to make the page look right
         
         //listen for a click on the tab !!does not work on mobile
-        window.onmousedown = (e) => {
+        let handleInteraction = (e) => {
             let tabSelected = e.target.getAttribute("class") == "tab";
             active.classList.remove("active");
             tabSelected ? active = e.target:null;
@@ -75,6 +73,9 @@
             active.classList.add("active");
             tabSelected ? update_content():null; //must be conditional, or page refreshes will mess things up
         }
+
+        window.addEventListener("touchstart", handleInteraction);
+        window.addEventListener("click", handleInteraction);
 
         /*NOTES:
     
