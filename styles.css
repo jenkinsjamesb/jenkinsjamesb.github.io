@@ -1,39 +1,37 @@
-html, body {
+body {
     width: 100%;
     height: 100%;
     margin: 0px;
-    display: block;
-    font-family: "Lucida Console", monospace;
-}
-
-#container {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    flex-direction: row;
-    column-gap: 0px;
-    opacity: 95%;
-    width: max-content;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    margin: 0px;
-
+    font-family: "Lucida Console", monospace;
+    
     background-image: url(resources/background.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    opacity: 95%;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 0px;
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
 }
 
 #content {
-    width: max-content;
+    width: auto;
     min-width: 60%;
     max-width: 100%;
-    height: max-content;
+    height: auto;
     min-height: 100%;
     margin: 0px;
     background-color: white;
     color: black;
+    overflow: auto;
 }
 
 #tabcontainer table {
@@ -41,8 +39,6 @@ html, body {
     height: 100%;
     padding: 0px;
     margin: 0px;
-    position: fixed;
-    left: 11.1%;
     border-collapse: separate !important;
     border-spacing: 0px;
 }

@@ -33,12 +33,12 @@
                                         START_CHIPS + "</label>", "<input type=\"text\" placeholder=\"Name\">", 
                                         "<button class=\"call\">Call</button>", "<button class=\"award\">Award Pot</button>"];
 
+                bets.push(0);
+                chips.push(START_CHIPS);
+
                 for (let j = 0; j < 6; j++) {
                     let cell = row.insertCell();
                     cell.innerHTML = control_layout[j];
-                    if (j == 2) cell.firstChild.id = "chips" + i;
-                    chips.push(START_CHIPS);
-                    bets.push(0);
                 }
             }
 
@@ -79,7 +79,7 @@
                 case "award":
                     chips[targetRow] += pot;
                     pot = 0;
-                    bets = [];
+                    bets.fill(0);
                     maxBet = 0;
                     break;
                 
@@ -92,11 +92,17 @@
                     let buffer = table.rows[0];
                     table.deleteRow(0);
                     table.appendChild(buffer);
-                    bets = [];
+                    chips.push(chips[0]);
+                    chips.shift();
+                    bets.fill(0);
+                    maxBet = 0;
                     break;
             }
+            console.log(bets);
+            console.log(targetRow);
+
             document.getElementById("pot").innerText = "Pot: " + pot;
-            document.getElementById("chips" + targetRow).innerText = chips[targetRow];
+            document.getElementById("control-table").rows[targetRow].getElementsByTagName("label")[0].innerText = chips[targetRow];
         }
 
         //sets up table when value is changed
