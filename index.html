@@ -10,14 +10,12 @@
 <body id="body">
     <div id="container">
         
-        <div id="content">
-            
-        </div>
+        <div id="content"></div>
 
         <div id="tabcontainer">
             <table rules=>
                 <tbody>
-                    <!-- This "head" td shouldn't be necessary but the tab positions breaks slightly if removed. no touch--> 
+                    <!-- This "head" td shouldn"t be necessary but the tab positions breaks slightly if removed. no touch--> 
                     <tr><td class="tab" id="head-tab"></td></tr>
                     <tr><td class="tab" id="home-tab">Home</td></tr>
                     <tr><td class="tab" id="portfolio-tab">Portfolio</td></tr>
@@ -42,26 +40,26 @@
         active.classList.add("active");
     
         //replaces content div with requested file
-        const update_content = () => {
+        const update_content = async () => {
             //gets html file
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/resources/tabs/' + activeId + '.html', true);
+            xhr.open("GET", "/resources/tabs/" + activeId + ".html", true);
             xhr.onreadystatechange = function() {
                 if (this.readyState !== 4) return;
                 if (this.status !== 200) return;
-                document.getElementById('content').innerHTML = this.responseText;
+                document.getElementById("content").innerHTML = this.responseText;
             };
             xhr.send();
             document.getElementById("title").innerText = "jamesbjenkins - " + activeId.replace("-tab", ""); //updates page title
-            location.hash = '';
+            //location.hash = ""; may eventually be necessary
             
             //gets js file
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'resources/tabs/' + activeId + '.js', true);
+            xhr.open("GET", "resources/tabs/" + activeId + ".js", true);
             xhr.onreadystatechange = function() {
                 if (this.readyState !== 4) return;
                 if (this.status !== 200) return;
-                document.getElementById('inject-script').innerHTML = this.responseText;
+                document.getElementById("inject-script").innerHTML = this.responseText;
             };
             xhr.send();
         }
@@ -83,7 +81,7 @@
             //alt script import
             var newScript = document.createElement("script");
             newScript.src = "resources/script.js";
-            document.getElementById('body').appendChild(newScript);
+            document.getElementById("body").appendChild(newScript);
     
             every tab should have a .js file for scripts if needed
 
