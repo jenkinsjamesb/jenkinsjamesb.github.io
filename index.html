@@ -53,7 +53,7 @@
             
             //gets js file
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "resources/tabs/" + activeId + ".js", true);
+            xhr.open("GET", "resources/tabs/scripts/" + activeId + ".js", true);
             xhr.onreadystatechange = function() {
                 if (this.readyState !== 4) return;
                 if (this.status !== 200) return;
@@ -64,7 +64,7 @@
     
         update_content();   //intial call to make the page look right
         
-        //listen for a click on the tab !!does not work on mobile
+        //click/tap handler
         let handleInteraction = (e) => {
             let tabSelected = e.target.getAttribute("class") == "tab";
             active.classList.remove("active");
@@ -83,11 +83,6 @@
             var newScript = document.createElement("script");
             newScript.src = "resources/script.js";
             document.getElementById("body").appendChild(newScript);
-    
-            every tab should have a .js file for scripts if needed
-
-            MOBILE SUPPORT
-            flexbox integration because holy shit
         */
     </script>
 </body>

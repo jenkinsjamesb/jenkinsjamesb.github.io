@@ -102,7 +102,7 @@
             console.log(targetRow);
 
             document.getElementById("pot").innerText = "Pot: " + pot;
-            document.getElementById("control-table").rows[targetRow].getElementsByTagName("label")[0].innerText = chips[targetRow];
+            if (true) document.getElementById("control-table").rows[targetRow].getElementsByTagName("label")[0].innerText = chips[targetRow];
         }
 
         //sets up table when value is changed
