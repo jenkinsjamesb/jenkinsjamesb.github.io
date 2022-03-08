@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <div width="100%" height="5%">
+        <span id="readout">RDY</span>
+    </div>
+    
+    <canvas id="display"></canvas>
+    <canvas id="map"></canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext('2d');
+        let mouse = {x: 0, y: 0};
+
+        class Ray {
+            constructor(originX, originY, castAngle) {
+                this.originX = originX;
+                this.originY = originY;
+                this.castAngle = castAngle;
+            }
+
+            cast () {
+                
+
+                return [intersectX, intersectY];
+            }
+        }
+
+        window.onmousemove = (e) => {
+            let rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            document.getElementById("readout").innerText = mouse.x + ", " + mouse.y;
+        }
+
+        window.onmousedown = (e) => {
+            
+        }
+
+        let step = async (timestamp) => {
+            
+        }
+
+        let setup = async () => {
+            window.requestAnimationFrame(step);
+        }
+
+        setup();
+    </script>
+
+</body>
+</html>
+
