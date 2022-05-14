@@ -25,6 +25,7 @@
         // tab select callback
         let select = (e) => {
             let name = e.target.innerText; // get name
+            document.getElementById("title").innerText = "jamesbjenkins - " + name; // update page title
             // remove underlines from tabs
             document.querySelectorAll("#header .tab-selector button").forEach((elem) => {elem.style.textDecoration = "none"});
             e.target.style.textDecoration = "underline"; // add underline back under active tab
