@@ -9,80 +9,64 @@
 
 <body id="body">
     <div id="container">
-
-        <div id="tabcontainer">
-            <table rules=>
-                <tbody>
-                    <tr><td class="tab" id="home-tab">Home</td></tr>
-                    <tr><td class="tab" id="portfolio-tab">Portfolio</td></tr>
-                    <tr><td class="tab" id="2-tab">soon™</td></tr>  
-                    <tr><td class="tab" id="3-tab">soon™</td></tr>
-                    <tr><td class="tab" id="4-tab">soon™</td></tr>
-                    <tr><td class="tab" id="5-tab">soon™</td></tr>
-                    <tr><td class="tab" id="6-tab">soon™</td></tr>
-                    <tr><td class="tab" id="7-tab">soon™</td></tr>
-                    <tr><td class="tab" id="demos-tab">Demos</td></tr>
-                    <tr><td class="tab" id="bugs-tab">Bug Reports</td></tr>
-                </tbody>
-            </table>
+        <div id="header">
+            <div class="title">dead-bird!</div>
+                <div class="tab-selector"></div>
         </div>
         
-        <div id="content" style="overflow-y: auto;"></div>
+        <div id="content"></div>
     </div>
-
-    <script id="inject-script"></script>
+    
+    <script id="injected-script"></script>
 
     <script>
-        //sets home as default tab
-        var active = document.querySelector("#home-tab"), activeId = active.getAttribute("id");
-        active.classList.add("active");
-    
-        //replaces content div with requested file
-        const update_content = async () => {
-            //gets html file
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/resources/tabs/" + activeId + ".html", true);
-            xhr.onreadystatechange = function() {
-                if (this.readyState !== 4) return;
-                if (this.status !== 200) return;
-                document.getElementById("content").innerHTML = this.responseText;
-            };
-            xhr.send();
-            document.getElementById("title").innerText = "jamesbjenkins - " + activeId.replace("-tab", ""); //updates page title
-            //location.hash = ""; may eventually be necessary
-            
-            //gets js file
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "resources/tabs/scripts/" + activeId + ".js", true);
-            xhr.onreadystatechange = function() {
-                if (this.readyState !== 4) return;
-                if (this.status !== 200) return;
-                document.getElementById("inject-script").innerHTML = this.responseText;
-            };
-            xhr.send();
-        }
-    
-        update_content();   //intial call to make the page look right
-        
-        //click/tap handler
-        let handleInteraction = (e) => {
-            let tabSelected = e.target.getAttribute("class") == "tab";
-            active.classList.remove("active");
-            tabSelected ? active = e.target:null;
-            activeId = active.getAttribute("id");
-            active.classList.add("active");
-            tabSelected ? update_content():null; //must be conditional, or page refreshes will mess things up
+        var tabList = ["home", "portfolio", "bugs"]; // must be updated 
+
+        // tab select callback
+        let select = (e) => {
+            let name = e.target.innerText; // get name
+            // remove underlines from tabs
+            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {elem.style.textDecoration = "none"});
+            e.target.style.textDecoration = "underline"; // add underline back under active tab
+
+            // using fetch :(
+            fetch("resources/tabs/" + name + ".html").then((response) => {
+                return response.text().then((text) => {
+                    document.getElementById("content").innerHTML = text;
+                });
+            });
         }
 
-        window.addEventListener("touchstart", handleInteraction);
-        window.addEventListener("click", handleInteraction);
-
-        /*NOTES:
-            //alt script import
+        main = () => {
+            // background, might need other options for a light mode
             var newScript = document.createElement("script");
-            newScript.src = "resources/script.js";
+            newScript.src = "resources/background.js";
             document.getElementById("body").appendChild(newScript);
-        */
+
+            //weather // TODO: weather effects
+            navigator.geolocation.getCurrentPosition((pos) => {
+                //console.log(pos.coords.accuracy);
+            })
+            // feed to https://forecast.weather.gov/MapClick.php?lat=38.301180000000045&lon=-77.45932999999997
+
+            // load tabs/buttons
+            tabList.forEach((tabName) => {
+                let button = document.createElement("button");
+                button.innerText = tabName;
+                button.addEventListener("click", select);
+                button.addEventListener("touchend", select);
+                document.querySelector("#header .tab-selector").appendChild(button);
+            });
+
+            // dispatch a click to the home tab to default it
+            document.querySelector("#header .tab-selector button").dispatchEvent(new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            }));
+        }
+
+        main();
     </script>
 </body>
 </html>
