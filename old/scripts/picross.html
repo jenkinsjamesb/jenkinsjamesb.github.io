@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+    <div width="100%" height="5%">
+        <span id="readout">RDY</span>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext('2d');
+        const colorLookup = {fill: "#555555", border: "#000000"};
+        const cellWidth = 25;
+
+        let mouse = {x: 0, y: 0};
+        let cellArr = []; 
+        var dim = {w: 10, h: 10};
+
+        class Cell {
+            constructor(x, y, l) {
+                this.x = x;
+                this.y = y;
+                this.l = l;
+                this.filled = false;
+            }
+
+            draw () {
+                ctx.fillStyle = this.filled ? "#FFFFFF":"#555555";
+                ctx.fillRect(this.x, this.y, this.l, this.l);
+                ctx.strokeRect(this.x, this.y, this.l, this.l);
+            }
+
+            toggle () {
+                this.filled = !this.filled;
+            }
+
+            static label (lineNum, dataHoriz, dataVert) {
+                ctx.fillStyle = "#000000";
+                ctx.font = "10px Arial";
+                
+                for (let i = 0; i < dataHoriz.length; i++) {
+                    let targetCell = cellArr[Math.floor(lineNum / dim.w)];
+                    ctx.fillText(dataHoriz[i], targetCell.x - 10 * dataHoriz.length + 10 * i, targetCell.y + cellWidth / 2);
+                }
+
+                for (let i = 0; i < dataVert.length; i++) {
+                    let targetCell = cellArr[Math.floor(lineNum % dim.w)];
+                    ctx.fillText(dataVert[i], targetCell.x + cellWidth / 2, targetCell.y - 10 * dataVert.length + 10 * i);
+                }
+            }
+        }
+
+        window.onmousemove = (e) => {
+            let rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            document.getElementById("readout").innerText = mouse.x + ", " + mouse.y;
+        }
+
+        window.onmousedown = (e) => {
+            cellArr.forEach((cell) => {
+                if (mouse.x >= cell.x && mouse.x <= cell.x + cellWidth && mouse.y >= cell.y && mouse.y <= cell.y + cellWidth) {
+                    cell.toggle();
+                    console.log(cell.x + ", " + cell.y + " " + cell.filled);
+                }
+            });
+        }
+
+        let step = async (timestamp) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            cellArr.forEach((cell) => {
+                cell.draw();
+            });
+
+            Cell.label(0, [1, 2, 3], [4, 5, 6]);
+
+            window.requestAnimationFrame(step);
+        }
+
+        let imgImport = async () => {
+            
+        }
+
+        let setup = async () => {
+            let margin = 50;
+            ctx.canvas.width = margin + cellWidth * dim.w;
+            ctx.canvas.height = margin + cellWidth * dim.h;
+    
+            for (let i = 0; i < dim.w * dim.h; i++) {
+                let c = new Cell(margin + i % dim.w * cellWidth, margin + Math.floor(i / dim.w) * cellWidth, cellWidth);
+                cellArr.push(c);
+            }
+
+            window.requestAnimationFrame(step);
+        }
+
+        setup();
+    </script>
+</body>
+</html>

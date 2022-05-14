@@ -1,73 +1,108 @@
+:root {
+    --text-color: #fff;
+    --tab-margin: 1vw;
+}
+
+html {
+    height: 100%;
+}
+
 body {
     width: 100%;
     height: 100%;
     margin: 0px;
     display: flex;
     font-family: "Lucida Console", monospace;
-    
-    background-image: url(resources/background.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    opacity: 95%;
+    overflow: hidden;
+    background-color: #333;
 }
 
 #container {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    column-gap: 0px;
-    width: 100%;
-    height: 100vh;
-    margin: 0px;
-}
-
-#content {
-    width: auto;
-    min-width: 60%;
-    max-width: 100%;
-    height: auto;
-    min-height: 100%;
-    margin: 0px;
-    background-color: white;
-    color: black;
-    overflow: auto;
-}
-
-#tabcontainer table {
-    width: max-content;
+    flex-direction: column;
+    width: 80%;
     height: 100%;
-    padding: 0px;
+    margin: auto;
+}
+
+/* navbar behavior */
+#header {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    background-color: #555;
+    user-select: none;
+}
+
+#header .title {
+    width: max-content;
+    margin: var(--tab-margin);
+    padding: 2px 5px;
+    font-family: fantasy;
+    font-size: xx-large;
+    background-color: #db0;
+    color: #000;
+}
+
+#header .tab-selector {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto var(--tab-margin);
+}
+
+#header .tab-selector button {
+    margin: auto var(--tab-margin);
+    padding: auto 5px;
+    border: 0px;
+    outline: 0;
+    background-color: rgba(0,0,0,0);
+    color: var(--text-color);
+    transition: margin 0.5s, font-size 0.5s;
+}
+
+#header .tab-selector button:hover {
+    margin: calc(var(--tab-margin) * 0.5);
+    font-size: 105%;
+    text-decoration: underline !important;
+    transition: margin 0.5s, font-size 0.5s;
+}
+
+/* content behavior */
+#content {
+    overflow-y: auto;
+    flex-grow: 1;
     margin: 0px;
-    border-collapse: separate !important;
-    border-spacing: 0px;
+    padding: 3%;
+    background-color: #333;
+    color: var(--text-color);
+    opacity: 97%;
 }
 
-#tabcontainer td {
-    width: 100%;
-    height: auto;
-    padding-inline: 10px;
-    margin: 0px;
-    background-color: lightgrey;
-    border: 1px solid black;
-    border-top-left-radius: 5%;
-    border-bottom-left-radius: 5%;
-    text-align: center;
-}
-
-#tabcontainer td:hover {
-    background-color: white;
-}
-
-#tabcontainer .active {
-    background-color: white;
-    border-right: 0px;
-}
-
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
 li > ul > li > a {
     color: red
+}
+
+/* responsivity & fonts */
+@media (max-width: 800px) {
+    #container {
+        width: 100%;
+    }
+    #header {
+        padding: 0px;
+    }
+}
+
+@font-face {
+    font-family: labelFont;
+    src: url(/resources/fonts/embossed-label.ttf);
+}
+
+@font-face {
+    font-family: titleFont;
+    src: url(/resources/fonts/umbaran-reg.ttf);
 }

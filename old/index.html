@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <title id="title">jamesbjenkins - home</title>
+</head>
+
+<body id="body">
+    <div id="container">
+        <div id="tabcontainer">
+            <table>
+            <tbody>
+                <tr><td class="tab" id="tab-0"><span>Home/About</span></td></tr>
+                <tr><td class="tab" id="tab-1"><span>Portfolio</span></td></tr>
+                <tr><td class="tab" id="tab-8"><span>Demos</span></td></tr>
+                <tr><td class="tab" id="tab-9"><span>Bugs</span></td></tr>
+                <tr><td class="tab" id="tab-7"><span>Contact</span></td></tr>
+            </tbody>
+            </table>
+        </div>
+        
+        <div id="content" style="overflow-y: auto;"></div>
+    </div>
+
+    <script id="inject-script"></script>
+
+    <script>
+
+        var active, activeId;
+
+        use_xhr = (url, targetElement) => { //xhr to get external file content
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState != 4) return;
+                if (this.status != 200) return;
+                targetElement.innerHTML = this.responseText;
+            };
+            xhr.send();
+            return new Promise((resolve) => { resolve(); });
+        }
+
+        update_content = () => { //replaces content div with requested file
+            document.getElementById("title").innerText = "jamesbjenkins - " + active.innerText.toLowerCase(); //updates page title
+            
+            use_xhr( "/resources/tabs/" + activeId + ".html", document.getElementById("content")); //gets html file
+            use_xhr("resources/tabs/scripts/" + activeId + ".js", document.getElementById("inject-script")); //gets js file
+        
+            //location.hash = ""; may eventually be necessary
+        }
+            
+        handleInteraction = (e) => { //click/tap handler
+            let tabSelected = e.target.getAttribute("class") == "tab" || e.target.parentNode.getAttribute("class") == "tab" ;
+            active.classList.remove("active");
+            tabSelected ? active = e.target:null;
+            activeId = active.getAttribute("id");
+            active.classList.add("active");
+            tabSelected ? update_content():null; //must be conditional, or page refreshes will mess things up
+        }
+
+        main = async () => {
+            active = document.querySelector("#tab-0"), activeId = active.getAttribute("id");
+            active.classList.add("active"); //sets home as default tab
+
+            update_content();   //intial call to make the page look right
+
+            window.addEventListener("touchstart", handleInteraction);
+            window.addEventListener("click", handleInteraction);
+
+            //background
+            var newScript = document.createElement("script");
+            newScript.src = "resources/background.js";
+            document.getElementById("body").appendChild(newScript);
+        }
+
+        main();
+    </script>
+</body>
+</html>
