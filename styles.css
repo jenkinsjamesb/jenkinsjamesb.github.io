@@ -91,9 +91,14 @@ li > ul > li > a {
 @media (max-width: 800px) {
     #container {
         width: 100%;
+        transition: width 0.5s;
     }
     #header {
         padding: 0px;
+        overflow: auto;
+    }
+    .tab-selector button {
+        margin: var(--tab-margin) var(--tab-margin);
     }
 }
 

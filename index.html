@@ -20,7 +20,7 @@
     <script id="injected-script"></script>
 
     <script>
-        var tabList = ["home", "portfolio", "bugs"]; // must be updated 
+        var tabList = ["home", "portfolio", "bugs", "ind._study"]; // must be updated 
 
         // tab select callback
         let select = (e) => {
@@ -31,7 +31,7 @@
             e.target.style.textDecoration = "underline"; // add underline back under active tab
 
             // using fetch :(
-            fetch("resources/tabs/" + name + ".html").then((response) => {
+            fetch("resources/tabs/" + name.replace(" ", "_") + ".html").then((response) => {
                 return response.text().then((text) => {
                     document.getElementById("content").innerHTML = text;
                 });
@@ -53,18 +53,14 @@
             // load tabs/buttons
             tabList.forEach((tabName) => {
                 let button = document.createElement("button");
-                button.innerText = tabName;
+                button.innerText = tabName.replace("_", " ");
                 button.addEventListener("click", select);
                 button.addEventListener("touchend", select);
                 document.querySelector("#header .tab-selector").appendChild(button);
             });
 
             // dispatch a click to the home tab to default it
-            document.querySelector("#header .tab-selector button").dispatchEvent(new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
-            }));
+            document.querySelector("#header .tab-selector button").dispatchEvent(new MouseEvent("click"));
         }
 
         main();
