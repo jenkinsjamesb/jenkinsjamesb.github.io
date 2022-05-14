@@ -38,7 +38,7 @@ body {
     width: max-content;
     margin: var(--tab-margin);
     padding: 2px 5px;
-    font-family: fantasy;
+    font-family: 'Times New Roman', Times, serif;
     font-size: xx-large;
     background-color: #db0;
     color: #000;
