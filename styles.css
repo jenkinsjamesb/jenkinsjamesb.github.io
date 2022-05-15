@@ -97,6 +97,9 @@ li > ul > li > a {
         padding: 0px;
         overflow: auto;
     }
+    #header .title {
+        font-size: x-large;
+    }
     .tab-selector button {
         margin: var(--tab-margin) var(--tab-margin);
     }
