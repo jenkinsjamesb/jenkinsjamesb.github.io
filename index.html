@@ -10,10 +10,9 @@
 <body id="body">
     <div id="container">
         <div id="header">
-            <div class="title">dead-bird!</div>
-                <div class="tab-selector"></div>
+            <div class="title"><img src="resources/images/bread.png">jbj</div>
+            <div class="tab-selector"></div>
         </div>
-        
         <div id="content"></div>
     </div>
     
@@ -22,16 +21,21 @@
     <script>
         var tabList = ["home", "portfolio", "bugs", "ind._study"]; // must be updated 
 
+        let cleanHash = () => {
+            return location.hash.replace("#","").replace("%20","_");
+        } 
+
         // tab select callback
         let select = (e) => {
-            let name = e.target.innerText; // get name
-            document.getElementById("title").innerText = "jamesbjenkins - " + name; // update page title
+            location.hash = e.target.innerText;
+            let name =  cleanHash(); // get name
+            document.getElementById("title").innerText = "jamesbjenkins - " + name.replace("_", " "); // update page title
             // remove underlines from tabs
             document.querySelectorAll("#header .tab-selector button").forEach((elem) => {elem.style.textDecoration = "none"});
             e.target.style.textDecoration = "underline"; // add underline back under active tab
 
             // using fetch :(
-            fetch("resources/tabs/" + name.replace(" ", "_") + ".html").then((response) => {
+            fetch("resources/tabs/" + name + ".html").then((response) => {
                 return response.text().then((text) => {
                     document.getElementById("content").innerHTML = text;
                 });
@@ -44,11 +48,11 @@
             newScript.src = "resources/background.js";
             document.getElementById("body").appendChild(newScript);
 
-            //weather // TODO: weather effects
+            /*//weather // TODO: weather effects
             navigator.geolocation.getCurrentPosition((pos) => {
                 //console.log(pos.coords.accuracy);
             })
-            // feed to https://forecast.weather.gov/MapClick.php?lat=38.301180000000045&lon=-77.45932999999997
+            // feed to https://forecast.weather.gov/MapClick.php?lat=38.301180000000045&lon=-77.45932999999997*/
 
             // load tabs/buttons
             tabList.forEach((tabName) => {
@@ -60,7 +64,10 @@
             });
 
             // dispatch a click to the home tab to default it
-            document.querySelector("#header .tab-selector button").dispatchEvent(new MouseEvent("click"));
+            if (location.hash == "") location.hash = "#home";
+            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {
+                if (elem.innerText == cleanHash()) elem.dispatchEvent(new MouseEvent("click"));
+            })
         }
 
         main();
