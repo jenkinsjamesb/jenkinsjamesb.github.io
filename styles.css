@@ -107,6 +107,7 @@ code {
     border: 1px solid #fff;
     border-radius: 5px;
     background-color: #222;
+    overflow-x: auto;
     opacity: 100%;
 }
 
