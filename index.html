@@ -19,20 +19,29 @@
     <script id="injected-script"></script>
 
     <script>
-        var tabList = ["home", "portfolio", "bugs", "ind._study"]; // must be updated 
+        var tabList = ["home", "portfolio", "bugs", "ind._study"]; // must be updated w/ names matching html
 
-        let cleanHash = () => {
-            return location.hash.replace("#","").replace("%20","_");
-        } 
+        let getHash = () => location.hash.replace("#","").replace("%20","_");
+
+        let update = () => {
+            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {
+                if (elem.innerText == getHash().replace("_", " ")) elem.dispatchEvent(new MouseEvent("click"));
+            })
+        }
 
         // tab select callback
         let select = (e) => {
-            location.hash = e.target.innerText;
-            let name =  cleanHash(); // get name
-            document.getElementById("title").innerText = "jamesbjenkins - " + name.replace("_", " "); // update page title
             // remove underlines from tabs
-            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {elem.style.textDecoration = "none"});
+            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {
+                elem.style.textDecoration = "none"
+                elem.classList.remove("active");
+            });
+
+            location.hash = e.target.innerText;
+            let name = getHash(); // get name
+            document.getElementById("title").innerText = "jamesbjenkins - " + name.replace("_", " "); // update page title
             e.target.style.textDecoration = "underline"; // add underline back under active tab
+            e.target.classList.add("active");
 
             // using fetch :(
             fetch("resources/tabs/" + name + ".html").then((response) => {
@@ -48,13 +57,7 @@
             newScript.src = "resources/background.js";
             document.getElementById("body").appendChild(newScript);
 
-            /*//weather // TODO: weather effects
-            navigator.geolocation.getCurrentPosition((pos) => {
-                //console.log(pos.coords.accuracy);
-            })
-            // feed to https://forecast.weather.gov/MapClick.php?lat=38.301180000000045&lon=-77.45932999999997*/
-
-            // load tabs/buttons
+            // create tabs/buttons
             tabList.forEach((tabName) => {
                 let button = document.createElement("button");
                 button.innerText = tabName.replace("_", " ");
@@ -63,11 +66,18 @@
                 document.querySelector("#header .tab-selector").appendChild(button);
             });
 
-            // dispatch a click to the home tab to default it
+            // go to home if no tab specified
             if (location.hash == "") location.hash = "#home";
-            document.querySelectorAll("#header .tab-selector button").forEach((elem) => {
-                if (elem.innerText == cleanHash()) elem.dispatchEvent(new MouseEvent("click"));
+            update(); // initial update call 
+            // redundant listener for the weird edge case where the user alters the anchor manually
+            window.addEventListener("popstate", update);
+
+            // TODO: append to background?
+            /*//weather
+            navigator.geolocation.getCurrentPosition((pos) => {
+                //console.log(pos.coords.accuracy);
             })
+            // feed to https://forecast.weather.gov/MapClick.php?lat=38.301180000000045&lon=-77.45932999999997*/
         }
 
         main();

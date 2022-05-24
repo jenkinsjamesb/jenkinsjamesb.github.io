@@ -32,8 +32,8 @@ body {
     flex-direction: row;
     flex-shrink: 0;
     background-color: #555;
+    border-radius: 5px;
     user-select: none;
-    border-radius: 5px
 }
 
 #header .title {
@@ -44,6 +44,7 @@ body {
     font-size: xx-large;
     background-color: #db0;
     color: #000;
+    pointer-events: none;
 }
 
 #header .tab-selector {
@@ -89,7 +90,7 @@ a {
     color: #afa
 }
 
-a:visited, a:active {
+a:visited, a:active, a:hover {
     color: #6a6
 }
 
@@ -99,10 +100,10 @@ p.indent {
 
 code {
     display: block;
-    text-align: center;
-    padding: 3px;
+    text-align: left;
+    padding: 0% 1.5%;
     margin: 1% 5%;
-    width: min-content;
+    width: auto;
     border: 1px solid #fff;
     border-radius: 5px;
     background-color: #222;
@@ -123,13 +124,18 @@ code {
     border-radius: 5px;
 }
 
-/*
-::-webkit-scrollbar-thumb:hover {
-    background-color: #777;
+/* selection */
+::selection {
+    color: #afa;
+    background: rgba(255, 255, 255, 0.3);
 }
-*/
 
-/* responsivity & fonts */
+::-moz-selection {
+    color: #afa;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* responsiveness & fonts */
 @media (max-width: 800px) {
     #container {
         width: 100%;
@@ -145,6 +151,9 @@ code {
     }
     #header .tab-selector button {
         margin: var(--tab-margin) var(--tab-margin);
+    }
+    #header .tab-selector button.active {
+        font-size: 105%;
     }
     #content {
         border-radius: 0px;
