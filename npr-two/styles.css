@@ -1,0 +1,12 @@
+body {
+    font-family: "Fira Sans", monospace;
+}
+
+input {
+    accent-color: #afa;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
