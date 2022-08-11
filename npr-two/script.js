@@ -83,7 +83,7 @@ let autoplayCallback = () => {
         info.playing--;
         document.getElementById("episode-number").value = info.range - info.playing + 1;
         main();
-        mediaElement.play;
+        mediaElement.play();
     }
 }
 
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", setup);
 
 document.getElementById("default-enabled").addEventListener("click", defaultEnabledCallback);
 
-document.getElementById("update-button").addEventListener("click", updateButtonCallback);
+document.getElementById("update-button").addEventListener("click", () => { updateButtonCallback(); mediaElement.play(); });
 
 document.getElementById("audio").addEventListener("ended", autoplayCallback);
 document.getElementById("audio").addEventListener("play", () => { info.playState = false; togglePlayState(); });
