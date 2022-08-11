@@ -8,10 +8,6 @@
     --transparent: rgba(0,0,0,0);
 }
 
-html {
-    cursor: pointer;
-}
-
 body {
     font-family: "Fira Sans", monospace;
     color: var(--color-text);
@@ -44,10 +40,12 @@ input, button {
 #playpause-button {
     display: flex;
     justify-content: center;
+    user-select: none;
     align-items: center;
     font-size: large;
     padding: 0px 3px;
     margin: 0px;
     top: 2px;
     transition: all 0.5s;
+    cursor: pointer;
 }
