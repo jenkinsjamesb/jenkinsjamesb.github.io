@@ -17,6 +17,11 @@ body {
     background-color: var(--color-bg);
 }
 
+#header {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+}
+
 form {
     display: flex;
     flex-direction: column;
