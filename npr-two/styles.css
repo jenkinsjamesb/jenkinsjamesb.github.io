@@ -8,6 +8,10 @@
     --transparent: rgba(0,0,0,0);
 }
 
+html {
+    cursor: pointer;
+}
+
 body {
     font-family: "Fira Sans", monospace;
     color: var(--color-text);

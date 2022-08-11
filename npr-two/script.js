@@ -120,21 +120,22 @@ let setup = async () => {
 document.addEventListener("DOMContentLoaded", setup);
 
 document.getElementById("update-button").addEventListener("click", updateButtonCallback);
-document.getElementById("update-button").addEventListener("touchstart", updateButtonCallback);
+//document.getElementById("update-button").addEventListener("touchstart", updateButtonCallback);
 
 document.getElementById("audio").addEventListener("ended", autoplayCallback);
 document.getElementById("audio").addEventListener("play", () => { info.playState = false; togglePlayState(); });
 document.getElementById("audio").addEventListener("pause", () => { info.playState = true; togglePlayState(); });
 
 document.getElementById("playpause-button").addEventListener("click", playButtonCallback);
-document.getElementById("playpause-button").addEventListener("touchstart", playButtonCallback);
+//document.getElementById("playpause-button").addEventListener("touchstart", playButtonCallback);
 
 document.getElementById("seek-bar").addEventListener("input", setTimestamp);
 document.getElementById("seek-bar").addEventListener("mousedown", () => { info.isSeeking = true; });
-document.getElementById("seek-bar").addEventListener("touchstart", () => { info.isSeeking = true; });
+//document.getElementById("seek-bar").addEventListener("touchstart", () => { info.isSeeking = true; });
 document.getElementById("seek-bar").addEventListener("mouseup", () => { info.isSeeking = false; setTimeCallback(); });
-document.getElementById("seek-bar").addEventListener("touchend", () => { info.isSeeking = false; setTimeCallback(); });
+//document.getElementById("seek-bar").addEventListener("touchend", () => { info.isSeeking = false; setTimeCallback(); });
 
 document.getElementById("volume-slider").addEventListener("change", () => { document.getElementById("audio").volume = document.getElementById("volume-slider").value / 100; });
 
 //TODO: media decoration, css stylization, show default player checkbox, setTimestamp efficiency
+//change website css to use css variables, change main to foreground, transfer to car-talk-player, favicon to ico
