@@ -13,7 +13,7 @@
                     <input id="podcast-id" type="number" placeholder="510208" value="510208">
                 </label>
                 <label>
-                    Episode Number<span id="episode-range-label"></span>: 
+                    Episode Number <span id="episode-range-label">(Fetching range...)</span>: 
                     <input id="episode-number" type="number" min="0">
                 </label>
                 <label>
@@ -21,16 +21,29 @@
                     <input id="autoplay-enabled" type="checkbox" checked>
                 </label>
                 <label>
+                    Show browser default player:
+                    <input id="default-enabled" type="checkbox" checked>
+                </label>
+                <label>
                     <button type="button" id="update-button">Fetch Podcast</button>
                 </label>
             </form>
             <form id="player">
-                <h4>Now Playing: <span id="episode-title"></span></h4>
-                <button id="playpause-button" type="button">Play</button>
-                <span id="timestamp-text">00:00 / 00:00</span>
-                <input id="seek-bar" type="range" value=0>
-                <input id="volume-slider" type="range" value="100">
-                <audio id="audio" controls="" autoplay="" name="media" data-video="0"></audio>
+                <div>
+                    <h4>Now Playing: <span id="episode-title"></span></h4>
+                </div>
+                <div>
+                    <button id="playpause-button" type="button">Play</button>
+                    <label>
+                        Volume:
+                        <input id="volume-slider" type="range" value="100">
+                    </label>
+                </div>
+                <div>
+                    <span id="timestamp-text">00:00 / 00:00</span>
+                    <input id="seek-bar" type="range" value=0>
+                </div>
+                <audio id="audio" controls="" autoplay="true" name="media" data-video="0"></audio>
             </form>
         </div>
     </body>

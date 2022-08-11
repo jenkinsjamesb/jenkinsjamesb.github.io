@@ -59,10 +59,6 @@ let main = async () => {
 let updateButtonCallback = () => {
     info.id = document.getElementById("podcast-id").value;
     info.playing = info.range - document.getElementById("episode-number").value + 1;
-    document.getElementById("player").removeChild(document.getElementById("audio"));
-    let newAudio = document.createElement("audio");
-    newAudio.id = "audio";
-    document.getElementById("player").appendChild(newAudio)
     main();
 }
 
@@ -114,7 +110,7 @@ let setTimeCallback = () => {
 let setup = async () => {
     await getRange();
     mediaElement = document.getElementById("audio");
-    document.getElementById("episode-range-label").innerText = " (1-" + info.range + ")";
+    document.getElementById("episode-range-label").innerText = "(1-" + info.range + ")";
     document.getElementById("episode-number").max = info.range;
     setInterval(seekSliderUpdateCallback, 500); //could use accuracy improvement
 }
@@ -122,6 +118,8 @@ let setup = async () => {
 // Various listeners
 
 document.addEventListener("DOMContentLoaded", setup);
+
+document.getElementById("default-enabled").addEventListener("click", () => { mediaElement.style.display = document.getElementById("default-enabled").checked ? "unset":"none"; })
 
 document.getElementById("update-button").addEventListener("click", updateButtonCallback);
 //document.getElementById("update-button").addEventListener("touchstart", updateButtonCallback);

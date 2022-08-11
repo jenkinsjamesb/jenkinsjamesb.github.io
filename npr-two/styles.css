@@ -35,6 +35,17 @@ input, button {
     cursor: pointer;
 }
 
+#player {
+    display: flex;
+    flex-direction: column;
+}
+
+#player > div {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 10px 10px;
+}
+
 #seek-bar {
     width: 75%;
 }
@@ -46,7 +57,7 @@ input, button {
     align-items: center;
     font-size: large;
     padding: 0px 3px;
-    margin: 0px;
+    margin-right: 10px;
     top: 2px;
     transition: all 0.5s;
 }
