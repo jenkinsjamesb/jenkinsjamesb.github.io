@@ -133,7 +133,7 @@ document.getElementById("audio").addEventListener("ended", autoplayCallback);
 document.getElementById("audio").addEventListener("play", () => { info.playState = false; togglePlayState(); });
 document.getElementById("audio").addEventListener("pause", () => { info.playState = true; togglePlayState(); });
 
-document.getElementById("playpause-button").addEventListener("click", playButtonCallback);
+document.getElementById("playpause-button").addEventListener("click", () => { mediaElement.play(); playButtonCallback();});
 
 document.getElementById("seek-bar").addEventListener("input", setTimestamp);
 document.getElementById("seek-bar").addEventListener("mousedown", () => { info.isSeeking = true; });
