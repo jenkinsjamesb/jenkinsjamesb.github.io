@@ -31,6 +31,8 @@ input, button {
     color: var(--color-fringe);
     background-color: var(--color-main);
     pointer-events: all;
+    touch-action: manipulation;
+    cursor: pointer;
 }
 
 #seek-bar {
@@ -47,5 +49,4 @@ input, button {
     margin: 0px;
     top: 2px;
     transition: all 0.5s;
-    cursor: pointer;
 }
