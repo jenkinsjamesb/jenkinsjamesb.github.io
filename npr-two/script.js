@@ -52,6 +52,7 @@ let main = async () => {
             let stopIndex = script.indexOf("\"", startIndex);
             src = script.substring(startIndex, stopIndex).replaceAll("\\", "");
             mediaElement.src = src;
+            mediaElement.autoplay = true;
         })
 }
 
@@ -68,7 +69,7 @@ let autoplayCallback = () => {
         info.playing--;
         document.getElementById("episode-number").value = info.range - info.playing + 1;
         main();
-        document.getElementById("audio").play;
+        mediaElement.play;
     }
 }
 
@@ -106,6 +107,11 @@ let setTimeCallback = () => {
     mediaElement.currentTime = document.getElementById("seek-bar").value / 100 * mediaElement.duration;
 }
 
+let defaultEnabledCallback = () => {
+    mediaElement.style.display = document.getElementById("default-enabled").checked ? "unset":"none";
+    document.getElementById("player").style.display = document.getElementById("default-enabled").checked ? "none":"unset";
+}
+
 // Initial setup to get range & such
 let setup = async () => {
     await getRange();
@@ -119,17 +125,15 @@ let setup = async () => {
 
 document.addEventListener("DOMContentLoaded", setup);
 
-document.getElementById("default-enabled").addEventListener("click", () => { mediaElement.style.display = document.getElementById("default-enabled").checked ? "unset":"none"; })
+document.getElementById("default-enabled").addEventListener("click", defaultEnabledCallback);
 
 document.getElementById("update-button").addEventListener("click", updateButtonCallback);
-//document.getElementById("update-button").addEventListener("touchstart", updateButtonCallback);
 
 document.getElementById("audio").addEventListener("ended", autoplayCallback);
 document.getElementById("audio").addEventListener("play", () => { info.playState = false; togglePlayState(); });
 document.getElementById("audio").addEventListener("pause", () => { info.playState = true; togglePlayState(); });
 
 document.getElementById("playpause-button").addEventListener("click", playButtonCallback);
-//document.getElementById("playpause-button").addEventListener("touchstart", playButtonCallback);
 
 document.getElementById("seek-bar").addEventListener("input", setTimestamp);
 document.getElementById("seek-bar").addEventListener("mousedown", () => { info.isSeeking = true; });

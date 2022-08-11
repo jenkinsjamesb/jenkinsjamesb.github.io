@@ -28,7 +28,7 @@
                     <button type="button" id="update-button">Fetch Podcast</button>
                 </label>
             </form>
-            <form id="player">
+            <form id="player" style="display: none;">
                 <div>
                     <h4>Now Playing: <span id="episode-title"></span></h4>
                 </div>
@@ -43,8 +43,8 @@
                     <span id="timestamp-text">00:00 / 00:00</span>
                     <input id="seek-bar" type="range" value=0>
                 </div>
-                <audio id="audio" controls="" autoplay="true" name="media" data-video="0"></audio>
             </form>
+            <audio id="audio" controls="" autoplay="true" name="media" data-video="0"></audio>
         </div>
     </body>
 
