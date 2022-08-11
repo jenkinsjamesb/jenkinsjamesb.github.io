@@ -1,6 +1,12 @@
 :root {
-    --text-color: #fff;
+    --color-bg: #333;
+    --color-fg: #555;
+    --color-accent: #db0;
+    --color-fringe: #afa;
+    --color-text: #fff;
+    --border: 2px solid var(--color-accent);
     --tab-margin: 1vw;
+    --transparent: rgba(0,0,0,0);
 }
 
 html {
@@ -14,7 +20,7 @@ body {
     display: flex;
     font-family: "Fira Sans Light", sans-serif;
     overflow: hidden;
-    background-color: #333;
+    background-color: var(--color-bg);
 }
 
 #container {
@@ -31,7 +37,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
-    background-color: #555;
+    background-color: var(--color-fg);
     border-radius: 5px;
     user-select: none;
 }
@@ -60,7 +66,7 @@ body {
     border: 0px;
     outline: 0;
     background: none;
-    color: var(--text-color);
+    color: var(--color-text);
     transition: margin 0.5s, font-size 0.5s;
 }
 
@@ -79,7 +85,7 @@ body {
     padding: 3%;
     border-radius: 5px 5px 0px 0px;
     background-color: rgba(51, 51, 51, 0.95);
-    color: var(--text-color);
+    color: var(--color-text);
 }
 
 h1, h2 {
@@ -87,7 +93,7 @@ h1, h2 {
 }
 
 a {
-    color: #afa
+    color: var(--color-fringe)
 }
 
 a:visited, a:active, a:hover {
@@ -121,18 +127,18 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #555;
+    background-color: var(--color-fg);
     border-radius: 5px;
 }
 
 /* selection */
 ::selection {
-    color: #afa;
+    color: var(--color-fringe);
     background: rgba(255, 255, 255, 0.3);
 }
 
 ::-moz-selection {
-    color: #afa;
+    color: var(--color-fringe);
     background: rgba(255, 255, 255, 0.3);
 }
 

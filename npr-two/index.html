@@ -10,7 +10,7 @@
             <form id="controls">
                 <label>
                     Podcast ID Number (Default: Car Talk):
-                    <input id="podcast-id" type="number" placeholder="510208" value="510208">
+                    <input id="podcast-id" type="number" placeholder="510208" value="510208" readonly>
                 </label>
                 <label>
                     Episode Number <span id="episode-range-label">(Fetching range...)</span>: 
@@ -22,15 +22,19 @@
                 </label>
                 <label>
                     Show browser default player:
-                    <input id="default-enabled" type="checkbox" checked>
+                    <input id="default-enabled" type="checkbox">
                 </label>
                 <label>
                     <button type="button" id="update-button">Fetch Podcast</button>
                 </label>
             </form>
-            <form id="player" style="display: none;">
+            <form id="player">
                 <div>
-                    <h4>Now Playing: <span id="episode-title"></span></h4>
+                    <h4>Now Playing: <input id="episode-title" type="text" readonly></h4>
+                </div>
+                <div>
+                    <span id="timestamp-text">00:00 / 00:00</span>
+                    <input id="seek-bar" type="range" value=0>
                 </div>
                 <div>
                     <button id="playpause-button" type="button">Play</button>
@@ -39,12 +43,8 @@
                         <input id="volume-slider" type="range" value="100">
                     </label>
                 </div>
-                <div>
-                    <span id="timestamp-text">00:00 / 00:00</span>
-                    <input id="seek-bar" type="range" value=0>
-                </div>
             </form>
-            <audio id="audio" controls="" autoplay="true" name="media" data-video="0"></audio>
+            <audio id="audio" controls="" autoplay="true" name="media" data-video="0" style="display: none;"></audio>
         </div>
     </body>
 

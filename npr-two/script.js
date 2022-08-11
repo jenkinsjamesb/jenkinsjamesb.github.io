@@ -1,5 +1,6 @@
 // General read/write info
 var mediaElement;
+var i = 0;
 var info = {
     id: 510208,
     range: null,
@@ -33,6 +34,7 @@ let getRange = (last = 0, current = 500) => {
 // Main function to fetch audio and write the source to the media element
 let main = async () => {
     let link, src;
+    let title, imgSrc;
 
     await fetch("https://www.npr.org/get/" + info.id + "/render/partial/next?start=" + info.playing)
         .then(response => response.text())
@@ -40,10 +42,11 @@ let main = async () => {
             let doc = new DOMParser().parseFromString(data, "text/html");
             let embed = new DOMParser().parseFromString(doc.querySelector("b.embed-url > code").innerText, "text/html");
             link = embed.querySelector("iframe").src;
-            document.getElementById("episode-title").innerText = doc.querySelector(".title > a").innerText;
+            title = doc.querySelector(".title > a").innerText;
+            document.getElementById("episode-title").value = title;
         });
 
-    fetch(link)
+    await fetch(link)
         .then(response => response.text())
         .then(data => {
             doc = new DOMParser().parseFromString(data, "text/html");
@@ -53,13 +56,24 @@ let main = async () => {
             src = script.substring(startIndex, stopIndex).replaceAll("\\", "");
             mediaElement.src = src;
             mediaElement.autoplay = true;
-        })
+            startIndex = script.indexOf("https:\\/\\/media.npr.org\\/images\\/");
+            stopIndex = script.indexOf("\"", startIndex);
+            imgSrc = script.substring(startIndex, stopIndex).replaceAll("\\", "");
+            console.log(imgSrc)
+        });
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: title,
+        artist: 'NPR',
+        artwork: [ { src: imgSrc, type: 'image/png' } ]
+    });
 }
 
 // Update function that checks the values of all of the inputs
 let updateButtonCallback = () => {
     info.id = document.getElementById("podcast-id").value;
     info.playing = info.range - document.getElementById("episode-number").value + 1;
+    i = 0;
     main();
 }
 
@@ -100,6 +114,10 @@ let seekSliderUpdateCallback = () => {
         document.getElementById("seek-bar").value = mediaElement.currentTime / mediaElement.duration * 100;
         setTimestamp();
     }
+    let titleLength = document.getElementById("episode-title").value.length + 1;
+    let scrollIndex = i % (titleLength * 2) >= titleLength ? titleLength - (i % titleLength):(i % titleLength);
+    document.getElementById("episode-title").scrollTo(scrollIndex , 0, true)
+    i++;
 }
 
 // Sets the current time in media to the selected time on the seek slider
@@ -143,5 +161,5 @@ document.getElementById("seek-bar").addEventListener("touchend", () => { info.is
 
 document.getElementById("volume-slider").addEventListener("input", () => { document.getElementById("audio").volume = document.getElementById("volume-slider").value / 100; });
 
-//TODO: media decoration, css stylization, show default player checkbox, setTimestamp efficiency
-//change website css to use css variables, change main to foreground, transfer to car-talk-player, favicon to ico
+//TODO: setTimestamp efficiency, fast forward/back
+//transfer to car-talk-player, favicon to ico

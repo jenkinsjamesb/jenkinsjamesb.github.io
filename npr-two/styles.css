@@ -1,6 +1,6 @@
 :root {
     --color-bg: #333;
-    --color-main: #555;
+    --color-fg: #555;
     --color-accent: #db0;
     --color-fringe: #afa;
     --color-text: #fff;
@@ -29,7 +29,7 @@ label {
 input, button {
     accent-color: #afa;
     color: var(--color-fringe);
-    background-color: var(--color-main);
+    background-color: var(--color-fg);
     pointer-events: all;
     touch-action: manipulation;
     cursor: pointer;
@@ -38,16 +38,30 @@ input, button {
 #player {
     display: flex;
     flex-direction: column;
+    align-content: center;
 }
 
 #player > div {
     display: flex;
     flex-direction: row;
-    margin: 0px 0px 10px 10px;
+    margin: 5px;
+    border: var(--border);
+    background-color: var(--color-fg);
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+#player > div > * {
+    margin: 5px;
+}
+
+#episode-title {
+    width: 60%;
 }
 
 #seek-bar {
-    width: 75%;
+    width: 65%;
 }
 
 #playpause-button {
@@ -57,7 +71,6 @@ input, button {
     align-items: center;
     font-size: large;
     padding: 0px 3px;
-    margin-right: 10px;
     top: 2px;
     transition: all 0.5s;
 }
