@@ -59,6 +59,10 @@ let main = async () => {
 let updateButtonCallback = () => {
     info.id = document.getElementById("podcast-id").value;
     info.playing = info.range - document.getElementById("episode-number").value + 1;
+    document.getElementById("player").removeChild(document.getElementById("audio"));
+    let newAudio = document.createElement("audio");
+    newAudio.id = "audio";
+    document.getElementById("player").appendChild(newAudio)
     main();
 }
 
@@ -131,11 +135,11 @@ document.getElementById("playpause-button").addEventListener("click", playButton
 
 document.getElementById("seek-bar").addEventListener("input", setTimestamp);
 document.getElementById("seek-bar").addEventListener("mousedown", () => { info.isSeeking = true; });
-//document.getElementById("seek-bar").addEventListener("touchstart", () => { info.isSeeking = true; });
+document.getElementById("seek-bar").addEventListener("touchstart", () => { info.isSeeking = true; });
 document.getElementById("seek-bar").addEventListener("mouseup", () => { info.isSeeking = false; setTimeCallback(); });
-//document.getElementById("seek-bar").addEventListener("touchend", () => { info.isSeeking = false; setTimeCallback(); });
+document.getElementById("seek-bar").addEventListener("touchend", () => { info.isSeeking = false; setTimeCallback(); });
 
-document.getElementById("volume-slider").addEventListener("change", () => { document.getElementById("audio").volume = document.getElementById("volume-slider").value / 100; });
+document.getElementById("volume-slider").addEventListener("input", () => { document.getElementById("audio").volume = document.getElementById("volume-slider").value / 100; });
 
 //TODO: media decoration, css stylization, show default player checkbox, setTimestamp efficiency
 //change website css to use css variables, change main to foreground, transfer to car-talk-player, favicon to ico
