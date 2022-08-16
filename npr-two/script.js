@@ -140,7 +140,6 @@ let setup = async () => {
 }
 
 // Various listeners
-
 document.addEventListener("DOMContentLoaded", setup);
 
 document.getElementById("default-enabled").addEventListener("click", defaultEnabledCallback);
