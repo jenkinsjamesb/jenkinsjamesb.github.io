@@ -10,9 +10,17 @@ var info = {
 
 // General-use functions
 const secToStamp = (secs) => String(Math.floor(secs / 60)).padStart(2, 0) + ":" + String(Math.floor(secs % 60)).padStart(2, 0);
+
 const toggleVisibilityforClass = (classList) => {
     Array.from(document.getElementsByClassName(classList)).forEach((element) => {
         element.style.display =  element.style.display == "none" ? "unset":"none";
+    });
+}
+
+addMultipleEventListener = (element, typeList, callback) => {
+    let types = typeList.split(" ");
+    types.forEach((type) => {
+        element.addEventListener(type, callback);
     });
 }
 
@@ -169,21 +177,23 @@ const defaultEnabledCallback = () => {
 }
 // END Player callbacks
 
-// Various listeners
-document.addEventListener("DOMContentLoaded", setup);
-
-document.getElementById("header").addEventListener("click", (e) => {
+const headerCallback = (e) => {
     let info = document.getElementById("info-div");
     info.style.height = "100%";
     toggleVisibilityforClass("info");
-    e.target.innerText = (info.style.display != "none" ? "\u25be":"\u25b8") + "// uNPR Podcast Player //"
-});
+    e.target.innerText = (info.style.display != "none" ? "\u25be":"\u25b8") + "// uNPR Car Talk Player //";
+}
 
-document.getElementById("default-enabled").addEventListener("click", defaultEnabledCallback);
+// Various listeners
+document.addEventListener("DOMContentLoaded", setup);
 
-document.getElementById("podcast-id").addEventListener("change", (e) => { info.id = e.target.value; getEpisodeRange(info.id); setup();})
+addMultipleEventListener(document.getElementById("header"), "click touchstart", headerCallback);
 
-document.getElementById("update-button").addEventListener("click", () => { main(); mediaElement.play(); });
+addMultipleEventListener(document.getElementById("default-enabled"), "click touchstart", defaultEnabledCallback);
+
+document.getElementById("podcast-id").addEventListener("change", (e) => { info.id = e.target.value; getEpisodeRange(info.id); setup();});
+
+addMultipleEventListener(document.getElementById("update-button"), "click touchstart", () => { main(); mediaElement.play(); });
 
 document.getElementById("audio").addEventListener("ended", autoplayCallback);
 document.getElementById("audio").addEventListener("play", () => { info.playState = false; togglePlayState(); });
@@ -192,10 +202,8 @@ document.getElementById("audio").addEventListener("pause", () => { info.playStat
 document.getElementById("playpause-button").addEventListener("click", () => { mediaElement.play(); playButtonCallback();});
 
 document.getElementById("seek-bar").addEventListener("input", setTimestamp);
-document.getElementById("seek-bar").addEventListener("mousedown", () => { info.isSeeking = true; });
-document.getElementById("seek-bar").addEventListener("touchstart", () => { info.isSeeking = true; });
-document.getElementById("seek-bar").addEventListener("mouseup", () => { info.isSeeking = false; setTimeCallback(); });
-document.getElementById("seek-bar").addEventListener("touchend", () => { info.isSeeking = false; setTimeCallback(); });
+addMultipleEventListener(document.getElementById("seek-bar"), "mousedown touchstart", () => { info.isSeeking = true; });
+addMultipleEventListener(document.getElementById("seek-bar"), "mouseup touchend", () => { info.isSeeking = false; setTimeCallback(); });
 
 document.getElementById("volume-slider").addEventListener("input", (e) => { document.getElementById("audio").volume = e.target.value / 100; });
 
