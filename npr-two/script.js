@@ -43,7 +43,7 @@ const getEpisodeRange = (podcastID, last = 0, current = 500) => {
                     });
                 break;
             } catch (err) {
-                document.getElementById("standby-text").innerText = "Fetch failed. " + (i >= 4 ? "Double check ID or try again later.":"Retrying.");
+                document.getElementById("standby-text").innerHTML = "<b>Fetch failed. " + (i >= 4 ? "Try again later.":"Retrying.") + "</b>";
             }
         }
     });
@@ -77,12 +77,13 @@ const getEpisodeDataObject = async (podcastID, episodeNumber) => {
                             let startIndex = script.indexOf("https:\\/\\/ondemand.npr.org\\/");
                             let stopIndex = script.indexOf("\"", startIndex);
                             episodeDataObject.audioSrc = script.substring(startIndex, stopIndex).replaceAll("\\", "");
+                            console.log(script);
 
                             //mediaElement.src = src;
                             //mediaElement.autoplay = true;
                             // remove/factor out?
 
-                            startIndex = script.indexOf("https:\\/\\/media.npr.org\\/images\\/");
+                            startIndex = script.indexOf("https:\\/\\/media.npr.org\\/");
                             stopIndex = script.indexOf("\"", startIndex);
                             episodeDataObject.imgSrc = script.substring(startIndex, stopIndex).replaceAll("\\", "");
                         });
@@ -101,6 +102,7 @@ const getEpisodeDataObject = async (podcastID, episodeNumber) => {
 const main = async () => {
     info.episode = info.range - document.getElementById("episode-number").value + 1;
     let ep = await getEpisodeDataObject(info.id, info.episode);
+    console.log(ep);
 
     mediaElement.src = ep.audioSrc;
     mediaElement.autoplay = true;
