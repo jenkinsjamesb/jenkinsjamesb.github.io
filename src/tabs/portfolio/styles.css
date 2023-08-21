@@ -1,0 +1,28 @@
+#content h3.section-header {
+    margin-top: 3%;
+    max-width: 90%;
+    text-decoration: underline;
+    color: #db0
+}
+
+#content h4 {
+    text-decoration: underline;
+    text-indent: 2%;
+}
+
+#content iframe {
+    padding: 0.5% 0.5%;
+    margin: 1% 5%;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+#content img {
+    margin: 1% 5%;
+    max-width: 90%;
+    border: 1px solid white;
+    border-radius: 5px;
+}
