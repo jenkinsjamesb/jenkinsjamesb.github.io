@@ -94,12 +94,13 @@ h1, h2 {
     text-align: center;
 }
 
-a {
-    color: var(--color-fringe)
+a, a:visited {
+    color: var(--color-fringe);
+    transition: opacity 0.5s;
 }
 
-a:visited, a:active, a:hover {
-    color: #6a6
+a:active, a:hover, a.visited {
+    opacity: 50%;
 }
 
 p.indent {
