@@ -29,7 +29,7 @@ let select = async (e) => {
 
     location.hash = e.target.innerText;
     let name = getHash(); // Get name
-    document.getElementById("title").innerText = "jamesbjenkins - " + name.replace("_", " "); // Update page title
+    document.getElementById("title").innerText = "jenkinsjamesb - " + name.replace("_", " "); // Update page title
     e.target.style.textDecoration = "underline"; // Add underline back under active tab
     e.target.classList.add("active");
 
