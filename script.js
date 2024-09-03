@@ -1,4 +1,4 @@
-var tabList = ["home", "portfolio", "ind. study"]; // Visible tabs. Must be updated with names matching folders in /src/tabs
+var tabList = ["home", "portfolio", "cars", "ind. study"]; // Visible tabs. Must be updated with names matching folders in /src/tabs
 
 let getHash = () => location.hash.replace("#","").replace("%20","-"); // Get current anchor and replace "%20" with "-"
 
