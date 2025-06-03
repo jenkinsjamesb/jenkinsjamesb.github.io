@@ -69,24 +69,7 @@ const getEpisodeDataObject = async (podcastID, episodeNumber) => {
                     let embed = new DOMParser().parseFromString(dom.querySelector("b.embed-url > code").innerText, "text/html");
                     let link = embed.querySelector("iframe").src;
                     episodeDataObject.title = dom.querySelector(".title > a").innerText;
-
-                    //document.getElementById("episode-title").value = title; // remove/factor out?
-
-                    await fetch(proxy + link)
-                        .then(response => response.text())
-                        .then(data => {
-                            let dom = new DOMParser().parseFromString(data, "text/html");
-                            let script = dom.querySelector("main script").innerText.replace("var apiDoc = ", "");
-                            //let audioModel = JSON.parse(script.substring(script.indexOf("{"), script.indexOf(";")));
-                            //console.log(audioModel)
-                            episodeDataObject.audioSrc = dom.querySelector("li.audio-tool-download > a").href
-                            
-                            //mediaElement.src = src;
-                            //mediaElement.autoplay = true;
-                            // remove/factor out?
-
-                            //episodeDataObject.imgSrc = audioModel.imageSrc;
-                        });
+                    episodeDataObject.audioSrc = dom.querySelector("li.audio-tool-download > a").href;
                 });
 
             resolve(episodeDataObject);
